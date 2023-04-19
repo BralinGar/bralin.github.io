@@ -119,7 +119,7 @@ function predictWebcam() {
 		
 			 // Check if the emotion value is above 90% for any emotion category.
 	    for (let i = 0; i < predictedValue[0].length; i++) {
-		if (predictedValue[0][i] > 0.9) {
+		if (predictedValue[0][i] > 0.5) {
 		    // Create a data string with the timestamp and the emotion label.
 		    const data = `${new Date().toISOString()} - ${emotionLabels[i]}\n`;
 		    // Send the data to a file using the Fetch API.
