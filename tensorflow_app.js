@@ -116,6 +116,7 @@ function predictWebcam() {
 			//Predicting from image.
 		const result = model_emotion.predict(image_tensor);
 		const predictedValue = result.arraySync();
+		const emotionLabels = ["angry", "digust", "fear", "happy", "sad", "suprise", "neutral"];
 		
 			 // Check if the emotion value is above 90% for any emotion category.
 	    for (let i = 0; i < predictedValue[0].length; i++) {
