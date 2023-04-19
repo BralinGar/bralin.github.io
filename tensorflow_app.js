@@ -116,6 +116,22 @@ function predictWebcam() {
 			//Predicting from image.
 		const result = model_emotion.predict(image_tensor);
 		const predictedValue = result.arraySync();
+		
+			 // Check if the emotion value is above 90% for any emotion category.
+	    for (let i = 0; i < predictedValue[0].length; i++) {
+		if (predictedValue[0][i] > 0.9) {
+		    // Create a data string with the timestamp and the emotion label.
+		    const data = `${new Date().toISOString()} - ${emotionLabels[i]}\n`;
+		    // Send the data to a file using the Fetch API.
+		    fetch('/data', {
+			method: 'POST',
+			body: data
+		    })
+		    .then(response => console.log(response))
+		    .catch(error => console.error(error));
+		}
+	    }
+		
 		document.getElementById("angry").style.width = 100*predictedValue['0'][0]+"%";
 		document.getElementById("disgust").style.width = 100*predictedValue['0'][1]+"%";
 		document.getElementById("fear").style.width = 100*predictedValue['0'][2]+"%";
